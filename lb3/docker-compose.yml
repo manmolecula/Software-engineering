@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  auth_service:
+    build:
+      context: ./auth_service
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    environment:
+        postgres_user: postgres
+        postgres_password: password
+        postgres_host: db
+        postgres_port: 5432
+        postgres_database: mai_pi
+
+  project_service:
+    build:
+      context: ./project_service
+    ports:
+      - "8001:8001"
+    depends_on:
+      - auth_service
+    networks:
+      - app-network
+    environment:
+        postgres_user: postgres
+        postgres_password: password
+        postgres_host: db
+        postgres_port: 5432
+        postgres_database: mai_pi
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mai_pi
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    ports:
+      - "5435:5432"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
