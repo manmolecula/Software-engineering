@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "project-service"
+version = "0.1.0"
+description = ""
+authors = ["silverfatt <silvestr.fat@mail.ru>"]
+readme = "README.md"
+packages = [{include = "project_service"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.115.12"
+pydantic = "^2.10.6"
+pydantic-settings = "^2.8.1"
+loguru = "^0.7.3"
+python-jose = "^3.4.0"
+passlib = "^1.7.4"
+uvicorn = "^0.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
